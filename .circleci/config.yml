@@ -7,8 +7,8 @@ commands:
     description: "command to print workflow ID"
     parameters:
       id:
-        type: integer
-        default: 0
+        type: string
+        default: "0"
     steps:
       - run: echo << parameter.id >>
 
@@ -54,7 +54,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - printworkflowid:
-          id: $CIRCLE_WORKFLOW_ID
+          id: << pipeline.id >>
      
 
 # Invoke jobs via workflows
