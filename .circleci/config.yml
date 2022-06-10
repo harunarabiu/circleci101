@@ -12,7 +12,7 @@ jobs:
       - image: cimg/base:stable
     # Add steps to the job
     # See: https://circleci.com/docs/2.0/configuration-reference/#steps
-    working_directory: /tmp
+    working_directory: ~/tmp
 
     steps:
       - run: mkdir -p workspace
@@ -25,7 +25,7 @@ jobs:
           paths:
             - output.txt
 
-  print_output_file:
+  print_file_content:
     docker:
       - image: cimg/base:stable
     # Add steps to the job
@@ -33,7 +33,7 @@ jobs:
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: /tmp/workspace
+          at: ~/tmp/workspace
 
       - run:
           name: "print file content"
@@ -45,4 +45,6 @@ workflows:
   save-hello-workflow:
     jobs:
       - save_hello_world_output
-      - print_output_file
+      - print_file_content:
+          requires:
+            - save_hello_world_output
