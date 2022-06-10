@@ -8,7 +8,6 @@ commands:
     parameters:
       id:
         type: string
-        default: "0"
     steps:
       - run: echo << parameter.id >>
 
@@ -62,8 +61,8 @@ jobs:
 workflows:
   save-hello-workflow:
     jobs:
+      - print_workflow_id
       - save_hello_world_output
       - print_file_content:
           requires:
             - save_hello_world_output
-      - print_workflow_id
