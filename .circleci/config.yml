@@ -46,6 +46,16 @@ jobs:
       - printworkflowid:
           id: << pipeline.id >>
 
+  fail_safe:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: exit 1
+      - run:
+          name: on error
+          command: echo "Hello Error!"
+          when: on_fail
+
 commands:
   printworkflowid:
     description: "command to print workflow ID"
@@ -66,3 +76,4 @@ workflows:
       - print_file_content:
           requires:
             - save_hello_world_output
+      - fail_safe
